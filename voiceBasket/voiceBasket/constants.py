@@ -104,6 +104,13 @@ REQUEST_TYPE = [
 
 ]
 
+ADMIN_EMAIL = 'admin@admin.com'
+
+ARTIST_PASSWORD = '123456'
+
+ARTIST_MOBILE = 8888888888
+
+ARTIST_COMPANY_NAME = 'Voice Basket'
 
 def make_choices(options):
     return map(lambda x: (x, x), options)
