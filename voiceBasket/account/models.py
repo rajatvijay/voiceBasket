@@ -30,3 +30,14 @@ class GenericUser(models.Model):
         salt, digest = saved_password.split(":")
         supplied_digest = hashlib.sha1(salt + supplied_password).hexdigest()
         return supplied_digest == digest
+
+
+class Session(models.Model):
+    user_id = models.ForeignKey(GenericUser)
+    session_id = models.CharField(max_length=200)
+    is_active = models.BooleanField(default=True)
+    time_to_live = models.IntegerField(default=6)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+
