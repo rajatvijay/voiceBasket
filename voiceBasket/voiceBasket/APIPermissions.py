@@ -15,7 +15,7 @@ class AuthToken(BasePermission):
             session = Session.objects.filter(session_id=headers['HTTP_SESSIONID'],
                                              created_on__gte=last_month, is_active=True).first()
             if session:
-                request.user = Investor.objects.get(pk=session.user_id)
+                request.user = GenericUser.objects.get(pk=session.user_id)
                 return request.user
             else:
                 return False

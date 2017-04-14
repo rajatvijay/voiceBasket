@@ -1,4 +1,6 @@
-from django.conf.urls import url, include
-from django.contrib import admin
+from django.conf.urls import url
+from views import GenericUserView
 
-urlpatterns = []
+urlpatterns = [
+    url(r'^user', GenericUserView.as_view())
+]

@@ -11,7 +11,7 @@ import string
 class GenericUser(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField()
-    mobile = models.IntegerField()
+    mobile = models.CharField(max_length=10)
     password = models.CharField(max_length=200)
     company_name = models.CharField(max_length=200)
     is_artist = models.BooleanField(default=False)
@@ -33,7 +33,7 @@ class GenericUser(models.Model):
 
 
 class Session(models.Model):
-    user_id = models.ForeignKey(GenericUser)
+    user = models.ForeignKey(GenericUser)
     session_id = models.CharField(max_length=200)
     is_active = models.BooleanField(default=True)
     time_to_live = models.IntegerField(default=6)

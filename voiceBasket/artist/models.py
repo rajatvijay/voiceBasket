@@ -35,15 +35,15 @@ class Request(models.Model):
     REQUEST_TYPES = constants.make_choices(constants.REQUEST_TYPE)
 
     type = models.CharField(max_length=50, choices=REQUEST_TYPES)
-    duration_in_minutes = models.IntegerField()
-    word_count = models.IntegerField()
-    script_text = models.CharField(max_length=1000)
-    script_url = models.URLField()
-    additional_notes = models.CharField(max_length=500)
+    duration_in_minutes = models.IntegerField(null=True)
+    word_count = models.IntegerField(null=True)
+    script_text = models.CharField(max_length=1000, null=True)
+    script_url = models.URLField(null=True)
+    additional_notes = models.CharField(max_length=500, null=True)
     has_characters = models.BooleanField(default=False)
-    reference_file_url = models.URLField()
-    audio_book_name = models.CharField(max_length=200)
-    ivr_count = models.IntegerField()
+    reference_file_url = models.URLField(null=True)
+    audio_book_name = models.CharField(max_length=200, null=True)
+    ivr_count = models.IntegerField(null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -59,6 +59,7 @@ class Characters(models.Model):
 class ArtistRequest(models.Model):
     request = models.ForeignKey(Request)
     artist_audio = models.ForeignKey(ArtistAudio)
+    user = models.ForeignKey(GenericUser)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
