@@ -56,6 +56,7 @@ class SearchView(APIView):
     def get(self, request):
         artist_audios = ArtistAudio.objects.all()
 
+        # TODO: Return something useful or meaningful
         if not artist_audios:
             return JSONResponse("Error")
 

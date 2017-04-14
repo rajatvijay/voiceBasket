@@ -4,8 +4,11 @@ from __future__ import unicode_literals
 from rest_framework.views import APIView
 
 from voiceBasket.response import *
+from voiceBasket.APIPermissions import AuthToken
 from models import GenericUser, Session
 from serializers import GenericUserSerializer
+from artist.serializers import ArtistRequestSerializer
+from artist.models import ArtistRequest
 
 import hashlib
 import os
@@ -60,3 +63,19 @@ class GenericUserView(APIView):
         GENERAL_MESSAGE['message'] = 'User Registered Successfully'
         return JSONResponse(GENERAL_MESSAGE)
 
+
+class DashboardView(APIView):
+    permission_classes = (AuthToken, )
+
+    def get(self, request):
+        user = request.user
+        artist_request = ArtistRequest.objects.filter(user=user)
+        if not artist_request:
+            return JSONResponse('error')
+
+        GENERAL_MESSAGE['result'] = {
+            'artist_request': ArtistRequestSerializer(instance=artist_request, many=True).data
+        }
+        GENERAL_MESSAGE['message'] = 'Dashboard fetched successfully'
+
+        return JSONResponse(GENERAL_MESSAGE)
