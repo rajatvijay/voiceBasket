@@ -29,7 +29,7 @@ class GenericUserView(APIView):
                 session.save()
                 GENERAL_MESSAGE['result'] = {
                     'session_id': session.session_id,
-                    'investor': GenericUserSerializer(instance=user).data
+                    'user': GenericUserSerializer(instance=user).data
                 }
 
                 GENERAL_MESSAGE['message'] = 'User Logged in Successfully'
@@ -57,7 +57,7 @@ class GenericUserView(APIView):
         session.save()
 
         GENERAL_MESSAGE['result'] = {
-            'investor': GenericUserSerializer(instance=user).data,
+            'user': GenericUserSerializer(instance=user).data,
             'session_id': session.session_id
         }
         GENERAL_MESSAGE['message'] = 'User Registered Successfully'
