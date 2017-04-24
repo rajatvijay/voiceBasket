@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 
 from voiceBasket.response import *
 from voiceBasket.constants import GENDER_OPTIONS, LANGUAGE_OPTIONS, VOICE_OVER_TYPE, \
-    AGE_TYPE, ARTIST_PASSWORD, ARTIST_MOBILE, ARTIST_COMPANY_NAME
+    AGE_RANGE, ARTIST_PASSWORD, ARTIST_MOBILE, ARTIST_COMPANY_NAME
 from voiceBasket.APIPermissions import AuthToken
 from serializers import ArtistRequestSerializer, ArtistAudioSerializer
 from models import Request, Characters, ArtistRequest, ArtistAudio, AudioClip
@@ -51,7 +51,7 @@ class OptionsView(APIView):
             'gender': GENDER_OPTIONS,
             'language': LANGUAGE_OPTIONS,
             'voice_over_type': VOICE_OVER_TYPE,
-            'age_type': AGE_TYPE
+            'age_range': AGE_RANGE
         }
         GENERAL_MESSAGE['message'] = 'The list has been fetched successfully'
 

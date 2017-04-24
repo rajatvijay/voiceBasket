@@ -12,7 +12,7 @@ class AudioClip(models.Model):
     GENDER = constants.make_choices(constants.GENDER_OPTIONS)
     LANGUAGE = constants.make_choices(constants.LANGUAGE_OPTIONS)
     VOICE_OVER_TYPE = constants.make_choices(constants.VOICE_OVER_TYPE)
-    AGE_RANGE = constants.make_choices(constants.AGE_TYPE)
+    AGE_RANGE = constants.make_choices(constants.AGE_RANGE)
 
     url = models.URLField()
     code = models.UUIDField(default=uuid.uuid4)

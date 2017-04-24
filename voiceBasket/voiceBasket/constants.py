@@ -86,7 +86,7 @@ VOICE_OVER_TYPE = [
 
 GENDER_OPTIONS = ['Male', 'Female', 'Male & Female']
 
-AGE_TYPE = [
+AGE_RANGE = [
     'Teenage',
     'Young Adult',
     'Middle Age',
