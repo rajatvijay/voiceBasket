@@ -13,6 +13,7 @@ class JSONResponse(HttpResponse):
         if search:
             content = data
         else:
+            print(data)
             data = JSONResponse.convert_json(data, JSONResponse.underscore_to_camel)
             print(data)
             content = JSONRenderer().render(data)
@@ -27,7 +28,9 @@ class JSONResponse(HttpResponse):
             if isinstance(v, dict):
                 new_d[convert(k)] = JSONResponse.convert_json(v, convert)
             elif isinstance(v, list):
-                new_d[convert(k)] = [JSONResponse.convert_json(element, convert) for element in v]
+                new_d[convert(k)] = [JSONResponse.convert_json(element, convert)
+                                     if isinstance(element, dict) else element
+                                     for element in v]
             else:
                 new_d[convert(k)] = v
         return new_d
