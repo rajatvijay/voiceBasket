@@ -48,10 +48,10 @@ class OptionsView(APIView):
 
     def get(self, request):
         GENERAL_MESSAGE['result'] = {
-            'language': LANGUAGE_OPTIONS,
-            'age_range': AGE_RANGE,
-            'voice_over_type': VOICE_OVER_TYPE,
-            'gender': GENDER_OPTIONS
+            '0__language': LANGUAGE_OPTIONS,
+            '1__age_range': AGE_RANGE,
+            '2__voice_over_type': VOICE_OVER_TYPE,
+            '3__gender': GENDER_OPTIONS
         }
         GENERAL_MESSAGE['message'] = 'The list has been fetched successfully!'
 
