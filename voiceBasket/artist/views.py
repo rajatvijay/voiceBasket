@@ -53,7 +53,7 @@ class OptionsView(APIView):
             'voice_over_type': VOICE_OVER_TYPE,
             'gender': GENDER_OPTIONS
         }
-        GENERAL_MESSAGE['message'] = 'The list has been fetched successfully'
+        GENERAL_MESSAGE['message'] = 'The list has been fetched successfully!'
 
         return JSONResponse(GENERAL_MESSAGE)
 
