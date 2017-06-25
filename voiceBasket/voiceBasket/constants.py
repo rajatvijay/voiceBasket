@@ -101,7 +101,11 @@ REQUEST_TYPE = [
     'Documentaries',
     'Audio-books',
     'IVR',
+]
 
+BROADCAST_TYPE = [
+    'T.V.',
+    'Radio'
 ]
 
 ADMIN_EMAIL = 'admin@admin.com'

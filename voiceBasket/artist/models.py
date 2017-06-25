@@ -33,6 +33,7 @@ class ArtistAudio(models.Model):
 
 class Request(models.Model):
     REQUEST_TYPES = constants.make_choices(constants.REQUEST_TYPE)
+    BROADCAST_TYPES = constants.make_choices(constants.BROADCAST_TYPE)
 
     type = models.CharField(max_length=50, choices=REQUEST_TYPES)
     duration_in_minutes = models.IntegerField(null=True)
@@ -44,6 +45,7 @@ class Request(models.Model):
     reference_file_url = models.URLField(null=True)
     audio_book_name = models.CharField(max_length=200, null=True)
     ivr_count = models.IntegerField(null=True)
+    broadcast_type = models.CharField(max_length=20, choices=BROADCAST_TYPES)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

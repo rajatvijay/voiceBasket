@@ -25,11 +25,14 @@ class RequestView(APIView):
         new_request = Request(**validated_data['request'])
         new_request.save()
 
+        # If the request has characters
+        # create entry in request table
         if new_request.has_characters:
             for char in validated_data['characters']:
-                    character = Characters(request=new_request, **char)
+                    character = Characters(request=new_request, artist_audio_id=char['id'])
                     character.save()
 
+        # Add entry in the ArtistRequest table
         artist_requests = []
         for artist in validated_data['artist_request']:
             artist_request = ArtistRequest(user=request.user, request=new_request,
