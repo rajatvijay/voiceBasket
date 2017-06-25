@@ -22,6 +22,13 @@ class RequestView(APIView):
 
     def post(self, request):
         validated_data = request.data
+
+        print(validated_data)
+
+        validated_data = JSONResponse.convert_json(validated_data, JSONResponse.camel_to_underscore)
+
+        print(validated_data)
+
         new_request = Request(**validated_data['request'])
         new_request.save()
 

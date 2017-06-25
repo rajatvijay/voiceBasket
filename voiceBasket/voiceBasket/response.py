@@ -13,9 +13,7 @@ class JSONResponse(HttpResponse):
         if search:
             content = data
         else:
-            print(data)
             data = JSONResponse.convert_json(data, JSONResponse.underscore_to_camel)
-            print(data)
             content = JSONRenderer().render(data)
 
         kwargs['content_type'] = 'application/json'
@@ -38,6 +36,11 @@ class JSONResponse(HttpResponse):
     @staticmethod
     def underscore_to_camel(name):
         return re.compile(r'_([a-z])').sub(lambda x: x.group(1).upper(), name)
+
+    @staticmethod
+    def camel_to_underscore(name):
+        s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+        return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
 
 GENERAL_MESSAGE = {'status': True}
