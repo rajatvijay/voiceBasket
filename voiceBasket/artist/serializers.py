@@ -3,13 +3,6 @@ from models import Request, ArtistAudio, AudioClip, ArtistRequest
 from account.serializers import GenericUserSerializer
 
 
-class RequestSerializer(ModelSerializer):
-
-    class Meta:
-        model = Request
-        exclude = ('created_on', 'updated_on')
-
-
 class AudioClipSerializer(ModelSerializer):
 
     class Meta:
@@ -24,6 +17,14 @@ class ArtistAudioSerializer(ModelSerializer):
     class Meta:
         model = ArtistAudio
         exclude = ('created_on', 'updated_on')
+
+
+class RequestSerializer(ModelSerializer):
+    artist_audio = ArtistAudioSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Request
+        exclude = ('updated_on', )
 
 
 class ArtistRequestSerializer(ModelSerializer):

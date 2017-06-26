@@ -7,8 +7,8 @@ from voiceBasket.response import *
 from voiceBasket.APIPermissions import AuthToken
 from models import GenericUser, Session
 from serializers import GenericUserSerializer
-from artist.serializers import ArtistRequestSerializer
-from artist.models import ArtistRequest
+from artist.serializers import ArtistRequestSerializer, RequestSerializer
+from artist.models import ArtistRequest, Request
 
 import hashlib
 import os
@@ -69,12 +69,13 @@ class DashboardView(APIView):
 
     def get(self, request):
         user = request.user
-        artist_request = ArtistRequest.objects.filter(user=user)
-        if not artist_request:
+        requests_list = Request.objects.filter(artistrequest__user=user)
+        # artist_request = ArtistRequest.objects.filter(user=user)
+        if not requests_list:
             return JSONResponse('error')
 
         GENERAL_MESSAGE['result'] = {
-            'artist_request': ArtistRequestSerializer(instance=artist_request, many=True).data
+            'artist_request': RequestSerializer(instance=requests_list, many=True).data
         }
         GENERAL_MESSAGE['message'] = 'Dashboard fetched successfully'
 

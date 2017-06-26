@@ -46,6 +46,9 @@ class Request(models.Model):
     audio_book_name = models.CharField(max_length=200, null=True)
     ivr_count = models.IntegerField(null=True)
     broadcast_type = models.CharField(max_length=20, choices=BROADCAST_TYPES)
+    user_status = models.CharField(max_length=20, null=True)
+    admin_status = models.CharField(max_length=20, null=True)
+    artist_audio = models.ManyToManyField(ArtistAudio, through='ArtistRequest')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
