@@ -80,3 +80,21 @@ class DashboardView(APIView):
         GENERAL_MESSAGE['message'] = 'Dashboard fetched successfully'
 
         return JSONResponse(GENERAL_MESSAGE)
+
+
+class AcceptRejectRequest(APIView):
+    permission_classes = (AuthToken, )
+
+    def put(self, request):
+        req = Request.objects.get(pk=request.data['id'])
+        req.user_status = request.data['user_response']
+        req.save()
+
+        GENERAL_MESSAGE['result'] = {
+            'artist_request': RequestSerializer(instance=Request.objects.filter(artistrequest__user=request.user),
+                                                many=True).data
+        }
+
+        GENERAL_MESSAGE['message'] = 'Status updated successfully!'
+
+        return JSONResponse(GENERAL_MESSAGE)
