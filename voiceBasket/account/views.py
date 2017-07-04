@@ -70,7 +70,7 @@ class DashboardView(APIView):
     def get(self, request):
         user = request.user
 
-        if user.userType == 'admin':
+        if user.user_type == 'admin':
             requests_list = Request.objects.all()
         else:
             requests_list = Request.objects.filter(artistrequest__user=user)
@@ -93,7 +93,7 @@ class AcceptRejectRequest(APIView):
         user = request.user
         req = Request.objects.get(pk=request.data['id'])
 
-        if user.userType == 'admin':
+        if user.user_type == 'admin':
             req.admin_status = request.data['user_response']
         else:
             req.user_status = request.data['user_response']
