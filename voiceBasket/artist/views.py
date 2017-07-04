@@ -85,6 +85,7 @@ class SearchView(APIView):
         return JSONResponse(GENERAL_MESSAGE)
 
 
+# Of no use since using user's login view
 class ArtistView(APIView):
     permission_classes = (AuthToken, )
 
@@ -121,19 +122,16 @@ class AudioView(APIView):
 
     def post(self, request):
         user = request.user
-        validated_data = request.data
 
-        if not user.email == ADMIN_EMAIL:
+        if user.user_type != 'artist':
             return JSONResponse(AUTHENTICATION_ERROR)
 
-        session_id = validated_data['artist_session_id']
-        del(validated_data['artist_session_id'])
+        validated_data = request.data
 
         audio_clip = AudioClip(**validated_data)
         audio_clip.save()
 
-        artist_audio = ArtistAudio(artist=Session.objects.get(session_id=session_id).user,
-                                   audio_clip=audio_clip)
+        artist_audio = ArtistAudio(artist=user, audio_clip=audio_clip)
         artist_audio.save()
 
         GENERAL_MESSAGE['result'] = {
