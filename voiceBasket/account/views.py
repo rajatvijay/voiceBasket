@@ -69,8 +69,12 @@ class DashboardView(APIView):
 
     def get(self, request):
         user = request.user
-        requests_list = Request.objects.filter(artistrequest__user=user)
-        # artist_request = ArtistRequest.objects.filter(user=user)
+
+        if user.userType == 'admin':
+            requests_list = Request.objects.all()
+        else:
+            requests_list = Request.objects.filter(artistrequest__user=user)
+
         if not requests_list:
             return JSONResponse('error')
 
@@ -86,12 +90,18 @@ class AcceptRejectRequest(APIView):
     permission_classes = (AuthToken, )
 
     def put(self, request):
+        user = request.user
         req = Request.objects.get(pk=request.data['id'])
-        req.user_status = request.data['user_response']
+
+        if user.userType == 'admin':
+            req.admin_status = request.data['user_response']
+        else:
+            req.user_status = request.data['user_response']
+
         req.save()
 
         GENERAL_MESSAGE['result'] = {
-            'artist_request': RequestSerializer(instance=Request.objects.filter(artistrequest__user=request.user),
+            'artist_request': RequestSerializer(instance=Request.objects.filter(artistrequest__user=user),
                                                 many=True).data
         }
 

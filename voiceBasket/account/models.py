@@ -14,7 +14,7 @@ class GenericUser(models.Model):
     mobile = models.CharField(max_length=10)
     password = models.CharField(max_length=200)
     company_name = models.CharField(max_length=200)
-    is_artist = models.BooleanField(default=False)
+    user_type = models.CharField(max_length=100)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
